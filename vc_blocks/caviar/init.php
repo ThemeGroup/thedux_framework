@@ -15,8 +15,12 @@ function thedux_framework_register_caviar_blocks(){
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_testimonial_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_portfolio_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_team_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_block_title_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_blog_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_blog_posts_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_product_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_product_masonry_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_shop_feature_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_twitter_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_hover_tile_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_progress_bar_block.php');

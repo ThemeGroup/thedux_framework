@@ -9,7 +9,7 @@ function thedux_product_shortcode( $atts ) {
 			array(
 				'pppage' => '12',
 				'filter' => 'all',
-				'layout' => 'masonry'
+				'layout' => 'none-sidebar'
 			), $atts 
 		) 
 	);

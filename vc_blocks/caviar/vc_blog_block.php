@@ -7,7 +7,7 @@ function thedux_blog_shortcode( $atts ) {
 	extract( 
 		shortcode_atts( 
 			array(
-				'type' => 'cards-sidebar',
+				'type' => 'classic',
 				'pppage' => '8',
 				'filter' => 'all'
 			), $atts 
