@@ -17,8 +17,11 @@ function thedux_hover_tile_shortcode( $atts, $content = null ) {
 				'hover' => '',
 				'title' => '',
 				'subtitle' => '',
+				'button_animation' => '',
 				'button_text' => '',
 				'link' => '#',
+				'button_type' => 'btn--primary',
+				'button_size' => '',
 				'custom_css' => '',
 			), $atts 
 		) 
@@ -79,9 +82,9 @@ function thedux_hover_tile_shortcode( $atts, $content = null ) {
 			<div class="hover-element__overlay" data-hover-opacity="'.$opacity.'"></div>
 			<div class="hover-element__description" data-hover-preset="'.$hover.'">
 				<div class="collection-thumb__title '.$text_align.'" data-v-pos="'.$v_pos.'" data-h-pos="'.$h_pos.'">
-					<h4>'. htmlspecialchars_decode($title) .'</h4>
+					'. ( ($title != '') ? '<h4>'. htmlspecialchars_decode($title) .'</h4>' : '' ) .'
 					'. ( ($subtitle != '') ? '<p>'. htmlspecialchars_decode($subtitle) .'</p>' : '' ) .'
-					'. ( ($button_text != '') ? '<p><a href="'.$link.'" class="btn btn--xs btn--underline">'.$button_text.'</a></p>' : '' ) .'
+					'. ( ($button_text != '') ? '<p>'.do_shortcode('[caviar_button button_text="'.$button_text.'" link="'.$link.'" type="'.$button_type.'" size="'.$button_size.'" animation="'.$button_animation.'"]').'</p>' : '' ) .'
 				</div>
 			</div>
 		</div><!--end hover element-->
@@ -208,6 +211,59 @@ function thedux_hover_tile_shortcode_vc() {
 					"type" => "textfield",
 					"heading" => esc_html__("URL for button", 'caviar'),
 					"param_name" => "link"
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Button Style", 'caviar'),
+					"param_name" => "button_type",
+					"value" => array(
+						"Primary" => 'btn--primary',
+						"Secondary" => 'btn--secondary',
+						"White" => 'btn--white',
+						"Dark" => 'btn--dark',
+						"Transparent" => 'btn--transparent',
+						"Unfilled" => 'btn--unfilled',
+						"Shadow" => 'btn--shadow',
+						"Shadow White" => 'btn--shadow btn--white',
+						"Underline" => 'btn--underline',
+						"Border" => 'btn--border',
+					)
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Button Size", 'caviar'),
+					"param_name" => "button_size",
+					"value" => array(
+						"Mini" => 'btn--xs',
+						"Small" => 'btn--sm',
+						"Normal" => '',
+						"Large" => 'btn--lg',
+					),
+					"std" => '',
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Button Animation", 'caviar'),
+					"param_name" => "button_animation",
+					"value" => array(
+						"None" => '',
+						"Sweep To Right" => 'hvr-sweep-to-right',
+						"Sweep To Left" => 'hvr-sweep-to-left',
+						"Sweep To Bottom" => 'hvr-sweep-to-bottom',
+						"Sweep To Top" => 'hvr-sweep-to-top',
+						"Bounce To Right" => 'hvr-bounce-to-right',
+						"Bounce To Left" => 'hvr-bounce-to-left',
+						"Bounce To Bottom" => 'hvr-bounce-to-bottom',
+						"Bounce To Top" => 'hvr-bounce-to-top',
+						"Radial Out" => 'hvr-radial-out',
+						"Radial In" => 'hvr-radial-in',
+						"Rectangle In" => 'hvr-rectangle-in',
+						"Rectangle Out" => 'hvr-rectangle-out',
+						"Shutter In Horizontal" => 'hvr-shutter-in-horizontal',
+						"Shutter Out Horizontal" => 'hvr-shutter-out-horizontal',
+						"Shutter In Vertical" => 'hvr-shutter-in-vertical',
+						"Shutter Out Vertical" => 'hvr-shutter-out-vertical',
+					)
 				),
 				array(
 					"type" => "textfield",
