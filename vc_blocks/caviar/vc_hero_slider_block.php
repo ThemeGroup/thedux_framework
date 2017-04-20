@@ -44,7 +44,7 @@ function thedux_slider_content_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<li class="imagebg" data-overlay="'. $overlay_opacity .'">
-			<div class="background-image-holder">
+			<div class="image-bg-wrap background-image-holder">
 				'. wp_get_attachment_image( $image, 'full' ) .'
 			</div>
 			<div class="container pos-vertical-center">

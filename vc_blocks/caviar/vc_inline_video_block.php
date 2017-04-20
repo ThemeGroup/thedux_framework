@@ -22,7 +22,7 @@ function thedux_video_inline_shortcode( $atts ) {
 		
 		$output = '
 			<div class="video-cover">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="video-play-icon"></div>
@@ -38,7 +38,7 @@ function thedux_video_inline_shortcode( $atts ) {
 		
 		$output = '
 			<div class="video-cover">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="video-play-icon "></div>

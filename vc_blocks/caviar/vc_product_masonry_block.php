@@ -44,7 +44,6 @@ function thedux_product_masonry_shortcode( $atts ) {
 	
 	ob_start();
 
-	//get_template_part('loop/loop-shop', $layout);
 	?>
 				<div class="masonry masonry-shop">
 					<?php if( $show_filter == 'yes' ): ?>

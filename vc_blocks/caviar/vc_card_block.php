@@ -48,7 +48,7 @@ function thedux_card_shortcode( $atts, $content = null ) {
 		$output = '
 			<div class="card card--horizontal card-2">
 				<div class="card__image col-sm-5">
-					<div class="background-image-holder">
+					<div class="image-bg-wrap background-image-holder">
 						'. wp_get_attachment_image( $image, 'large' ) .'
 					</div>
 				</div>
@@ -87,7 +87,7 @@ function thedux_card_shortcode( $atts, $content = null ) {
 			<a href="'. esc_url($link) .'">
 				<div class="card card--horizontal card-5">
 					<div class="card__image col-sm-7 col-md-8">
-						<div class="background-image-holder">
+						<div class="image-bg-wrap background-image-holder">
 							'. wp_get_attachment_image( $image, 'large' ) .'
 						</div>
 					</div>

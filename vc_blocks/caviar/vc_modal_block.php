@@ -61,7 +61,7 @@ function thedux_modal_shortcode( $atts, $content = null ) {
 			
 			$output .= '
 					<div class="modal-content bg-white imagebg" data-width="'. (int) $width .'%" data-height="'. (int) $height .'%" data-overlay="5">
-						<div class="background-image-holder">
+						<div class="image-bg-wrap background-image-holder">
 							'. wp_get_attachment_image( $image, 'full' ) .'
 						</div>
 						<div class="pos-vertical-center clearfix">

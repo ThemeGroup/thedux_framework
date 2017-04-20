@@ -3,18 +3,77 @@
 /**
  * The Shortcode
  */
+function thedux_masonry_grid_shortcode( $atts, $content = null ){
+	extract(
+		shortcode_atts(
+			array(
+				'gap' => '',
+				'columns' => '3',
+				'custom_css' => '',
+			), $atts
+		)
+	);
+	
+	global $masonry_grid_columns, $masonry_wrapped;
+	$masonry_grid_columns = '';
+	$masonry_wrapped = 1;
+	
+	switch( $columns ):
+		case 1:
+			$masonry_grid_columns = 'col-sm-12';
+			break;
+		case 2:
+			$masonry_grid_columns = 'col-sm-6';
+			break;
+		case 3:
+			$masonry_grid_columns = 'col-sm-4';
+			break;
+		case 4:
+			$masonry_grid_columns = 'col-sm-3';
+			break;
+		case 6:
+			$masonry_grid_columns = 'col-sm-2';
+			break;
+		default:
+			$masonry_grid_columns = 'col-sm-4';
+			break;
+	endswitch;
+	
+	$output = '
+	<div class="masonry '.(($gap=='none')?'masonry--nogap':'').' '.$custom_css.'">
+		<div class="row">
+			<div class="masonry__container">
+			<div class="col-md-1 masonry__item"></div>
+			'.do_shortcode($content).'
+			</div>
+		</div>
+	</div>
+	';
+	
+	$masonry_grid_columns = null;
+	$masonry_wrapped = null;
+	
+	return $output;
+}
+add_shortcode( 'caviar_masonry_grid', 'thedux_masonry_grid_shortcode' );
+
+/**
+ * The Shortcode
+ */
 function thedux_hover_tile_shortcode( $atts, $content = null ) {
 	extract( 
 		shortcode_atts( 
 			array(
 				'animation' => 'zoom--in',
 				'image' => '',
-				'type' => 'top__left',
+				'type' => 'centered',
 				'text_align' => 'text-left', 
 				'background' => '', // bg--primary
+				'width' => '',
 				'height' => '50',
 				'opacity' => '0',
 				'hover' => '',
+				'hidden' => '',
 				'title' => '',
 				'subtitle' => '',
 				'button_animation' => '',
@@ -67,20 +126,30 @@ function thedux_hover_tile_shortcode( $atts, $content = null ) {
 			$h_pos = 'right';
 			break;
 		default:
-			$v_pos = 'top';
-			$h_pos = 'left';
+			$v_pos = '';
+			$h_pos = '';
 			break;
 	endswitch;
 	
-	$output = '
-		<div class="hover-element hover-element-1 v__height-'.$height.' '.$animation.' '.$background.' '.$custom_css.'">
+	global $masonry_grid_columns, $masonry_wrapped;
+	$column_css = $masonry_grid_columns;
+	if($width != '') $column_css = $width;
+	
+	$output = '';
+	
+	if(isset($masonry_wrapped) && $masonry_wrapped==1){
+		$output .= '<div class="'.$column_css.' col-xs-12 masonry__item">';
+	}
+	
+	$output .= '
+		<div class="hover-element__box hover-element hover-element-1 v__height-'.$height.' '.$animation.' '.$background.' '.$custom_css.'">
 			<div class="hover-element__thumb">
 				<div class="image-bg-wrap">
 				'. wp_get_attachment_image( $image, 'large' ) .'
 				</div>
 			</div>
 			<div class="hover-element__overlay" data-hover-opacity="'.$opacity.'"></div>
-			<div class="hover-element__description" data-hover-preset="'.$hover.'">
+			<div class="hover-element__description '.( ($hidden == 'hidden')?'hidden--default':'' ).'" data-hover-preset="'.$hover.'">
 				<div class="collection-thumb__title '.$text_align.'" data-v-pos="'.$v_pos.'" data-h-pos="'.$h_pos.'">
 					'. ( ($title != '') ? '<h4>'. htmlspecialchars_decode($title) .'</h4>' : '' ) .'
 					'. ( ($subtitle != '') ? '<p>'. htmlspecialchars_decode($subtitle) .'</p>' : '' ) .'
@@ -90,9 +159,60 @@ function thedux_hover_tile_shortcode( $atts, $content = null ) {
 		</div><!--end hover element-->
 	';
 	
+	if(isset($masonry_wrapped) && $masonry_wrapped==1){
+		$output .= '</div>';
+	}
+	
 	return $output;
 }
 add_shortcode( 'caviar_hover_tile', 'thedux_hover_tile_shortcode' );
+
+/**
+ * The VC Functions
+ */
+function thedux_masonry_grid_shortcode_vc() {
+	vc_map( 
+		array(
+			"icon" => 'caviar-vc-block',
+		    'name'                    => esc_html__( 'Masonry Grid' , 'caviar' ),
+		    'base'                    => 'caviar_masonry_grid',
+		    'as_parent'               => array('only' => 'caviar_hover_tile'), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
+		    'content_element'         => true,
+		    'show_settings_on_create' => true,
+		    "js_view" => 'VcColumnView',
+		    "category" => esc_html__('Caviar Theme', 'caviar'),
+		    'params'          => array(
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Column", 'caviar'),
+					"param_name" => "columns",
+					"value" => array(
+						'3' => '3',
+						'1' => '1',
+						'2' => '2',
+						'4' => '4',
+						'6' => '6',
+					)
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Gap", 'caviar'),
+					"param_name" => "gap",
+					"value" => array(
+						'Default' => '',
+						'No Gap' => 'none',
+					)
+				),
+				array(
+					"type" => "textfield",
+					"heading" => esc_html__("Extra class name", 'caviar'),
+					"param_name" => "custom_css"
+				),
+		    )
+		) 
+	);
+}
+add_action( 'vc_before_init', 'thedux_masonry_grid_shortcode_vc' );
 
 /**
  * The VC Functions
@@ -115,11 +235,12 @@ function thedux_hover_tile_shortcode_vc() {
 					"heading" => esc_html__("Display Type", 'caviar'),
 					"param_name" => "type",
 					"value" => array(
+						'Centered' => 'centered',
 						'Top Left' => 'top__left',
 						'Top Center' => 'top__center',
 						'Top Right' => 'top__right',
 						'Center Left' => 'center__left',
-						'Center Center' => 'center__center',
+						//'Center Center' => 'center__center',
 						'Center Right' => 'center__right',
 						'Bottom Left' => 'bottom__left',
 						'Bottom Center' => 'bottom__center',
@@ -144,6 +265,23 @@ function thedux_hover_tile_shortcode_vc() {
 						'Normal' => '',
 						'Primary' => 'bg--primary',
 					)
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Block Width", 'caviar'),
+					"param_name" => "width",
+					"value" => array(
+						'Inherit' => '',
+						'1/6 grid' => 'col-sm-2',
+						'1/4 grid' => 'col-sm-3',
+						'1/3 grid' => 'col-sm-4',
+						'5/12 grid' => 'col-sm-5',
+						'1/2 grid' => 'col-sm-6',
+						'7/12 grid' => 'col-sm-7',
+						'2/3 grid' => 'col-sm-8',
+						'3/4 grid' => 'col-sm-9',
+					),
+					"std" => '50'
 				),
 				array(
 					"type" => "dropdown",
@@ -191,6 +329,15 @@ function thedux_hover_tile_shortcode_vc() {
 					)
 				),
 				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Hidden Content", 'caviar'),
+					"param_name" => "hidden",
+					"value" => array(
+						'None' => '',
+						'Hidden' => 'hidden',
+					)
+				),
+				array(
 					"type" => "textfield",
 					"heading" => esc_html__("Title", 'caviar'),
 					"param_name" => "title",
@@ -234,9 +381,9 @@ function thedux_hover_tile_shortcode_vc() {
 					"heading" => esc_html__("Button Size", 'caviar'),
 					"param_name" => "button_size",
 					"value" => array(
+						"Normal" => '',
 						"Mini" => 'btn--xs',
 						"Small" => 'btn--sm',
-						"Normal" => '',
 						"Large" => 'btn--lg',
 					),
 					"std" => '',
@@ -275,3 +422,10 @@ function thedux_hover_tile_shortcode_vc() {
 	);
 }
 add_action( 'vc_before_init', 'thedux_hover_tile_shortcode_vc' );
+
+// A must for container functionality, replace Wbc_Item with your base name from mapping for parent container
+if(class_exists('WPBakeryShortCodesContainer')){
+    class WPBakeryShortCode_caviar_masonry_grid extends WPBakeryShortCodesContainer {
+
+    }
+}

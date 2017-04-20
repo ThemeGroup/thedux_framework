@@ -49,7 +49,7 @@ function thedux_video_gallery_content_shortcode( $atts, $content = null ) {
 	$output = '
 		<div class="col-sm-6 col-xs-12 masonry__item" data-masonry-filter="'. $class .'">
 			<div class="portfolio-item portfolio-item-2 video-cover" data-scrim-bottom="9">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'large' ) .'
 				</div>
 				<div class="portfolio-item__title">

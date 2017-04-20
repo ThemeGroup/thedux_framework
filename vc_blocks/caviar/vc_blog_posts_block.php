@@ -7,8 +7,9 @@ function thedux_blog_posts_shortcode( $atts ) {
 	extract( 
 		shortcode_atts( 
 			array(
-				'type' => 'list',
+				'type' => 'grid',
 				'pppage' => '6',
+				'columns' => '4',
 				'filter' => 'all'
 			), $atts 
 		) 
@@ -50,6 +51,23 @@ function thedux_blog_posts_shortcode( $atts ) {
 	$old_post = $post;
 	$wp_query = new WP_Query( $query_args );
 	
+	$blog_columns = '';
+	
+	switch( $columns ):
+		case 2:
+			$blog_columns = 'col-sm-6';
+			break;
+		case 3:
+			$blog_columns = 'col-sm-4';
+			break;
+		case 4:
+			$blog_columns = 'col-sm-3';
+			break;
+		default:
+			$blog_columns = 'col-sm-4';
+			break;
+	endswitch;
+	
 	ob_start();
 	
 	if($type == 'list'){
@@ -90,29 +108,21 @@ function thedux_blog_posts_shortcode( $atts ) {
 	} elseif($type == 'grid'){
 	?>
 	<div class="row">
-		<div class="masonry masonry-blog-list">
+		<div class="masonry">
 			<div class="masonry__container blog-load-more">
 				<?php
 					if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
 					?>
-						<div class="shortcode__latest-post col-md-4 col-sm-6 masonry__item">
-							<?php if( has_post_thumbnail() ) : ?>
-							<div class="latest-post_thumb">
-
-								<img alt="<?php the_title()?>" src="<?php  the_post_thumbnail_url('large')?>" />
-
-								<div class="latest-post__date">
-									<?php echo get_the_time('d'); ?>
-									<span><?php echo get_the_time('M'); ?></span>
-								</div>
-							</div>
-							<?php endif; ?>
-							<div class="latest-post__body text-center">
-								<a class="latest-post__title" href="<?php the_permalink() ?>">
-									<?php the_title() ?>
+						<div class="shortcode__latest-post <?php echo $blog_columns ?> masonry__item">
+							<article class="blog-content">
+								<?php if( has_post_thumbnail() ) : ?>
+								<a href="<?php the_permalink() ?>" class="block">
+									<img alt="<?php the_title()?>" src="<?php  the_post_thumbnail_url('large')?>" />
 								</a>
-								<p class="latest-post__bottom"><a href="<?php the_permalink() ?>" class="btn btn--border btn--sm"><?php esc_html_e('Read More','caviar') ?></a> </p>
-							</div>
+								<?php endif; ?>
+								<a href="<?php the_permalink() ?>"><h3><?php the_title()?></h3></a>
+								<p><?php echo wp_trim_words( get_the_content(), 20 ); ?> <a href="<?php the_permalink() ?>"><?php esc_html_e('More','caviar') ?> ➜</a></p>
+							</article>
 						</div>
 					<?php
 					endwhile;	
@@ -186,6 +196,15 @@ function thedux_blog_posts_shortcode_vc() {
 			'description' => 'Show blog posts with layout options.',
 			"params" => array(
 				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Display type", 'caviar'),
+					"param_name" => "type",
+					"value" => array(
+						"Grid" => 'grid',
+						"Slider" => 'slider',
+					)
+				),
+				array(
 					"type" => "textfield",
 					"heading" => esc_html__("Show How Many Posts?", 'caviar'),
 					"param_name" => "pppage",
@@ -193,14 +212,18 @@ function thedux_blog_posts_shortcode_vc() {
 				),
 				array(
 					"type" => "dropdown",
-					"heading" => esc_html__("Display type", 'caviar'),
-					"param_name" => "type",
+					"heading" => esc_html__("Column", 'caviar'),
+					"param_name" => "columns",
+					"dependency" => array(
+						"element" => "type",
+						"value" => 'grid',
+					),
 					"value" => array(
-						"List" => 'list',
-						"Grid" => 'grid',
-						"Slider" => 'slider',
+						'3' => '3',
+						'2' => '2',
+						'4' => '4',
 					)
-				)
+				),
 			)
 		) 
 	);

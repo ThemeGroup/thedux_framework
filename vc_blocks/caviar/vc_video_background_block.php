@@ -27,7 +27,7 @@ function thedux_video_background_shortcode( $atts, $content = null ) {
 					<source src="'. esc_url($mpfour) .'" type="video/mp4">
 					<source src="'. esc_url($ogv) .'" type="video/ogg">	
 				</video>
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -43,7 +43,7 @@ function thedux_video_background_shortcode( $atts, $content = null ) {
 		$output = '
 			<section class="imagebg videobg height-100" data-overlay="4">
 				<div class="youtube-background" data-video-url="'. esc_attr($embed) .'" data-start-at="0"></div>
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">

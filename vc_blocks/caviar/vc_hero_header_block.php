@@ -27,7 +27,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="'. $slider_height .' imagebg '. $parallax .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -44,7 +44,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="'. $slider_height .' imagebg cover cover-1 parallax" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -69,7 +69,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 					<source src="'. esc_url($mpfour) .'" type="video/mp4">
 					<source src="'. esc_url($ogv) .'" type="video/ogg">	
 				</video>	
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -100,7 +100,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="cover cover-11 '. $slider_height .' imagebg '. $parallax .'" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder background--bottom">
+				<div class="image-bg-wrap background-image-holder background--bottom">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -118,7 +118,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 		$output = '
 			<section class="'. $slider_height .' cover cover-2">
 				<div class="col-md-6 col-sm-5">
-					<div class="background-image-holder">
+					<div class="image-bg-wrap background-image-holder">
 						'. wp_get_attachment_image( $image, 'full' ) .'
 					</div>
 				</div>
@@ -137,7 +137,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 	
 		$output = '
 			<section class="'. $slider_height .' imagebg cover cover-6 parallax" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -169,7 +169,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 					<source src="'. esc_url($mpfour) .'" type="video/mp4">
 					<source src="'. esc_url($ogv) .'" type="video/ogg">	
 				</video>
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -182,7 +182,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 	
 		$output = '
 			<section class="'. $slider_height .' imagebg bg--primary" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center">
@@ -199,7 +199,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 	
 		$output = '
 			<section class="cover cover-12 form--dark imagebg '. $slider_height .' parallax" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-vertical-center text-center-xs">
@@ -229,7 +229,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 	
 		$output = '
 			<section class="'. $slider_height .' imagebg cover cover-3 '. $parallax .'" data-overlay="'. $overlay_opacity .'">
-				<div class="background-image-holder">
+				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
 				<div class="container pos-absolute pos-bottom text-center-xs">
