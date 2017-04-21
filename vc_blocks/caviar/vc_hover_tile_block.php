@@ -280,6 +280,7 @@ function thedux_hover_tile_shortcode_vc() {
 						'7/12 grid' => 'col-sm-7',
 						'2/3 grid' => 'col-sm-8',
 						'3/4 grid' => 'col-sm-9',
+						'full grid' => 'col-sm-12',
 					),
 					"std" => '50'
 				),

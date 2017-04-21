@@ -86,6 +86,27 @@ if(!( function_exists('thedux_the_terms') )){
 	}
 }
 
+/* Product taxonomy terms output */
+if(!( function_exists('thedux_get_terms') )){
+	function thedux_get_terms( $taxonomy = 'product_cat' ){
+		$cats = get_terms( $taxonomy );
+		if ( ! $cats || is_wp_error( $cats ) ) {
+			return array();
+		}
+
+		$categories = array();
+		foreach ( $cats as $cat ) {
+			$categories[] = array(
+				'label' => $cat->name,
+				'value' => $cat->slug,
+				'group' => 'category',
+			);
+		}
+
+		return $categories;
+	}
+}
+
 /**
  * thedux sanitize title
  * A replacement function for WordPress santize_title which breaks in Russian and other languages.
@@ -128,7 +149,6 @@ if(!( function_exists('thedux_add_post_thumbnail_column') )){
 	}
 }
 add_filter('manage_posts_columns', 'thedux_add_post_thumbnail_column', 5);
-add_filter('manage_pages_columns', 'thedux_add_post_thumbnail_column', 5);
 
 
 if(!( function_exists('thedux_display_post_thumbnail_column') )){
@@ -144,7 +164,6 @@ if(!( function_exists('thedux_display_post_thumbnail_column') )){
 	}
 }
 add_action('manage_posts_custom_column', 'thedux_display_post_thumbnail_column', 5, 2);
-add_action('manage_pages_custom_column', 'thedux_display_post_thumbnail_column', 5, 2);
 
 /**
  * HEX to RGB Converter

@@ -10,7 +10,10 @@ function thedux_product_masonry_shortcode( $atts ) {
 				'pppage' => '12',
 				'columns' => '4',
 				'filter' => 'all',
-				'show_filter' => 'yes'
+				'show_filter' => 'yes',
+				'type_filter' => 'category',
+				'category'      => '',
+				'load_more'     => false,
 			), $atts 
 		) 
 	);
@@ -36,11 +39,24 @@ function thedux_product_masonry_shortcode( $atts ) {
 		);
 	}
 	
-	global $wp_query, $shop_columns;
+	if($type_filter == 'category'){
+		if ( empty( $category ) ) {
+			$categories = get_terms( 'product_cat' );
+		} else {
+			$categories = get_terms( array(
+				'taxonomy' => 'product_cat',
+				'slug'     => explode( ',', trim( $category ) ),
+			) );
+			$query_args['product_cat'] = $category;
+		}
+	}
+	
+	global $wp_query, $shop_columns, $product_filter;
 	$old_query = $wp_query;
 	$wp_query = new WP_Query( $query_args );
 	
 	$shop_columns = $columns;
+	$product_filter = $type_filter;
 	
 	ob_start();
 
@@ -84,6 +100,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 	
 	wp_reset_postdata();
 	$wp_query = $old_query;
+	$product_filter = null;
 	
 	return $output;
 }
@@ -110,15 +127,6 @@ function thedux_product_masonry_shortcode_vc() {
 				),
 				array(
 					"type" => "dropdown",
-					"heading" => esc_html__("Show Filter?", 'caviar'),
-					"param_name" => "show_filter",
-					"value" => array(
-						"Yes" => "yes",
-						"No" => "no"
-					)
-				),
-				array(
-					"type" => "dropdown",
 					"heading" => esc_html__("Product Columns", 'caviar'),
 					"param_name" => "columns",
 					"value" => array(
@@ -127,7 +135,51 @@ function thedux_product_masonry_shortcode_vc() {
 						"4 Columns" => '4'
 					),
 					"std" => '4'
-				)
+				),
+				array(
+					"type" => "dropdown",
+					"heading" => esc_html__("Show Filter?", 'caviar'),
+					"param_name" => "show_filter",
+					"value" => array(
+						"Yes" => "yes",
+						"No" => "no"
+					)
+				),
+				array(
+					'heading'     => esc_html__( 'Filter Type', 'caviar' ),
+					'description' => esc_html__( 'Select how to group products in grid', 'caviar' ),
+					'param_name'  => 'type_filter',
+					'type'        => 'dropdown',
+					'value'       => array(
+						esc_html__( 'Group by feature', 'caviar' )  => 'group',
+						esc_html__( 'Group by category', 'caviar' ) => 'category',
+					),
+				),
+				array(
+					'heading'     => esc_html__( 'Categories', 'caviar' ),
+					'description' => esc_html__( 'Select what categories you want to use. Leave it empty to use all categories.', 'caviar' ),
+					'param_name'  => 'category',
+					'type'        => 'autocomplete',
+					'value'       => '',
+					'settings'    => array(
+						'multiple' => true,
+						'sortable' => true,
+						'values'   => thedux_get_terms(),
+					),
+					'dependency'  => array(
+						'element' => 'type_filter',
+						'value'   => 'category',
+					),
+				),
+				array(
+					'heading'     => esc_html__( 'Load More Button', 'caviar' ),
+					'param_name'  => 'load_more',
+					'type'        => 'checkbox',
+					'value'       => array(
+						esc_html__( 'Yes', 'caviar' ) => 'yes',
+					),
+					'description' => esc_html__( 'Show load more button with ajax loading', 'caviar' ),
+				),
 			)
 		) 
 	);
