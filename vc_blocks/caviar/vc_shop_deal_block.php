@@ -44,7 +44,7 @@ function thedux_shop_deal_content_shortcode( $atts ) {
 	$output = '
 		<li class="imageblock image--light">
 			<div class="image-bg-wrap background--top">
-				'. wp_get_attachment_image( $image, 'large' ) .'
+				'. wp_get_attachment_image( $image, 'full' ) .'
 			</div>
 			<div class="container">
 				<div class="row">
