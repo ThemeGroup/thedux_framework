@@ -11,8 +11,10 @@ function thedux_product_masonry_shortcode( $atts ) {
 				'columns' => '4',
 				'filter' => 'all',
 				'show_filter' => 'yes',
-				'type_filter' => 'category',
+				'type_filter' => 'feature',
+				'feature' => '',
 				'category'      => '',
+				'all_text'		=> 'All Products',
 				'load_more'     => false,
 			), $atts 
 		) 
@@ -39,6 +41,35 @@ function thedux_product_masonry_shortcode( $atts ) {
 		);
 	}
 	
+	if($type_filter == 'feature'){
+		if( ! empty( $feature ) ){
+			
+			switch ( $feature ) {
+				case 'featured':
+					$query_args['meta_query'][] = array(
+						'key'   => '_featured',
+						'value' => 'yes',
+					);
+					break;
+
+				case 'sale':
+					$query_args['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
+					break;
+
+				case 'best_sellers':
+					$query_args['meta_key'] = 'total_sales';
+					$query_args['orderby']  = 'meta_value_num';
+					break;
+
+				case 'top_rated':
+					break;
+				default:
+					break;
+			}
+			
+		}
+	}
+	
 	if($type_filter == 'category'){
 		if ( empty( $category ) ) {
 			$categories = get_terms( 'product_cat' );
@@ -51,48 +82,85 @@ function thedux_product_masonry_shortcode( $atts ) {
 		}
 	}
 	
-	global $wp_query, $shop_columns, $product_filter;
+	global $wp_query, $shop_columns, $product_filter, $product_feature;
 	$old_query = $wp_query;
 	$wp_query = new WP_Query( $query_args );
 	
 	$shop_columns = $columns;
 	$product_filter = $type_filter;
+	$product_feature = $feature;
 	
 	ob_start();
 
 	?>
-				<div class="masonry masonry-shop">
-					<?php if( $show_filter == 'yes' ): ?>
-					<div class="masonry-filter-container text-center">
-						<div class="masonry-filter-holder">
-							<div class="masonry__filters product-uppercase-filter" data-filter-all-text="<?php esc_html_e("All Products", 'caviar') ?>"></div>
-						</div>
-					</div>
-					<?php endif; ?>
-					<div class="row">
-						<div class="masonry__container <?php echo esc_attr(get_option('animated_masonry', 'masonry--animate')); ?>">
-							<?php
-								if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
-								
-									/**
-									 * Get blog posts by blog layout.
-									 */
-									$catalog_layout = get_option('caviar_shop_catelog_style', 'default');
-									get_template_part('loop/content-catalog', $catalog_layout);
-								
-								endwhile;	
-								else : 
-									
-									/**
-									 * Display no posts message if none are found.
-									 */
-									get_template_part('loop/content','none');
-									
-								endif;
-							?>
-						</div><!--end masonry container-->
-					</div><!--end row-->
-				</div><!--end masonry-->
+	<div class="caviar__shop-catalog-content">
+		<div class="masonry masonry-shop">
+			<?php if( $show_filter == 'yes' ): ?>
+			<div class="masonry-filter-container text-center">
+				<div class="masonry-filter-holder">
+					<div class="masonry__filters product-uppercase-filter" data-filter-all-text="<?php echo esc_html($all_text) ?>"></div>
+				</div>
+			</div>
+			<?php endif; ?>
+			<div class="row">
+				<div class="masonry__container <?php echo esc_attr(get_option('animated_masonry', 'masonry--animate')); ?>">
+					<?php
+						if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
+						
+							/**
+							 * Get blog posts by blog layout.
+							 */
+							$catalog_layout = get_option('caviar_shop_catelog_style', 'default');
+							get_template_part('loop/content-catalog', $catalog_layout);
+						
+						endwhile;	
+						else : 
+							
+							/**
+							 * Display no posts message if none are found.
+							 */
+							get_template_part('loop/content','none');
+							
+						endif;
+					?>
+				</div><!--end masonry container-->
+			</div><!--end row-->
+		</div><!--end masonry-->
+	<?php
+	if ( isset( $load_more ) && $load_more && $wp_query->max_num_pages > 1 ) {
+	?>
+	<nav class="woocommerce-pagination caviar-pagination caviar__load-more">
+		<?php
+		echo paginate_links( apply_filters( 'woocommerce_pagination_args', array(
+			'base'         	=> esc_url( str_replace( 999999999, '%#%', remove_query_arg( array( 'add-to-cart', 'shop_load', '_', 'infload', 'ajax_filters' ), get_pagenum_link( 999999999, false ) ) ) ),
+			'format'       	=> '',
+			'current'      	=> max( 1, get_query_var( 'paged' ) ),
+			'total'        	=> $wp_query->max_num_pages,
+			'prev_text'		=> '&larr;',
+			'next_text'    	=> '&rarr;',
+			'type'         	=> 'list',
+			'end_size'     	=> 3,
+			'mid_size'     	=> 3
+		) ) );
+		?>
+	</nav>
+
+	<div class="caviar__load-more-link"><?php next_posts_link( '&nbsp;' ); ?></div>
+
+	<div class="caviar__load-more-controls button-mode">
+		<a href="#" class="btn btn--dark caviar__load-more-btn"><?php esc_html_e( 'Load More', 'caviar' ); ?></a>
+		<div class="loading--more">
+		    <div class="btn btn--dark loading-icon">
+				<span>.</span><span>.</span><span>.</span>
+		    </div>
+		</div>
+		<a href="#" class="btn btn--border caviar__load-more-complete"><?php esc_html_e( 'All products loaded.', 'caviar' ); ?></a>
+	</div>
+
+	<?php
+	}
+	?>
+	</div>
 	<?php
 	
 	$output = ob_get_contents();
@@ -101,6 +169,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 	wp_reset_postdata();
 	$wp_query = $old_query;
 	$product_filter = null;
+	$product_feature = null;
 	
 	return $output;
 }
@@ -151,9 +220,25 @@ function thedux_product_masonry_shortcode_vc() {
 					'param_name'  => 'type_filter',
 					'type'        => 'dropdown',
 					'value'       => array(
-						esc_html__( 'Group by feature', 'caviar' )  => 'group',
+						esc_html__( 'Group by feature', 'caviar' )  => 'feature',
 						esc_html__( 'Group by category', 'caviar' ) => 'category',
 					),
+				),
+				array(
+					"type" => "dropdown",
+					'heading' => esc_html__( 'Feature attribute', 'caviar' ),
+					"param_name" => "feature",
+					"value" => array(
+						"All Products" => '',
+						"Recent Products" => 'recent',
+						"Featured Products" => 'featured',
+						"Sale Products" => 'sale',
+					),
+					'dependency'  => array(
+						'element' => 'type_filter',
+						'value'   => 'feature',
+					),
+					
 				),
 				array(
 					'heading'     => esc_html__( 'Categories', 'caviar' ),
@@ -171,6 +256,12 @@ function thedux_product_masonry_shortcode_vc() {
 						'value'   => 'category',
 					),
 				),
+		    	array(
+		    		"type" => "textfield",
+		    		"heading" => esc_html__("All Text", 'caviar'),
+		    		"param_name" => "all_text",
+		    		"value" => 'All Products'
+		    	),
 				array(
 					'heading'     => esc_html__( 'Load More Button', 'caviar' ),
 					'param_name'  => 'load_more',
