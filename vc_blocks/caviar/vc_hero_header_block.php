@@ -17,7 +17,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				'button_url' => '',
 				'shortcode' => 'None',
 				'parallax' => 'parallax',
-				'slider_height' => 'height-100',
+				'slider_height' => 'v__height-100',
 				'overlay_opacity' => '4'
 			), $atts 
 		) 
@@ -26,11 +26,11 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 	if( 'intro-left' == $layout ) {
 		
 		$output = '
-			<section class="'. $slider_height .' imagebg '. $parallax .'">
+			<section class="'. $slider_height .' imagebg '. $parallax .'" data-overlay="'. $overlay_opacity .'">
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					<div class="row">
 						<div class="col-md-7 col-sm-8">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
@@ -47,10 +47,10 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					'. do_shortcode(htmlspecialchars_decode($content)) .'
 				</div>
-				<div class="col-sm-12 pos-absolute pos-bottom">
+				<div class="col-sm-12 vh-po-absolute vh-po-bottom">
 					<div class="row">
 						<div class="col-sm-12 text-center">
 							'. thedux_header_social_items() .'
@@ -72,7 +72,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					<div class="row">
 						<div class="col-sm-12 col-md-10 col-md-offset-1 text-center">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
@@ -90,7 +90,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 						</div>
 					</div><!--end of row-->
 				</div><!--end of container-->
-				<div class="col-sm-12 text-center pos-absolute pos-bottom">
+				<div class="col-sm-12 text-center vh-po-absolute vh-po-bottom">
 					'. thedux_header_social_items() .'
 			    </div>
 			</section>
@@ -103,7 +103,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder background--bottom">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					<div class="row">
 						<div class="col-sm-10 col-sm-offset-1">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
@@ -123,10 +123,10 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-7 bg--white text-center">
-					<div class="pos-vertical-center">
+					<div class="vh-po-vertical-center">
 						'. do_shortcode(htmlspecialchars_decode($content)) .'
 					</div>
-					<div class="col-sm-12 text-center pos-absolute pos-bottom">
+					<div class="col-sm-12 text-center vh-po-absolute vh-po-bottom">
 						'. thedux_header_social_items() .'
 				    </div>
 				</div>
@@ -140,14 +140,14 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					<div class="row">
 						<div class="col-sm-12">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
 						</div>
 					</div>
 				</div>
-				<div class="container pos-bottom pos-absolute">
+				<div class="container vh-po-bottom vh-po-absolute">
 					<div class="row">';
 					
 		if( !( 'None' == $shortcode ) ){
@@ -172,7 +172,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					'. do_shortcode(htmlspecialchars_decode($content)) .'
 				</div>
 			</section>
@@ -185,7 +185,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center">
+				<div class="container vh-po-vertical-center">
 					<div class="row">
 						<div class="col-sm-12">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
@@ -202,8 +202,8 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-vertical-center text-center-xs">
-					<div class="row pos-vertical-align-columns">
+				<div class="container vh-po-vertical-center text-center-xs">
+					<div class="row vh-po-vertical-align-columns">
 						<div class="col-md-7 col-sm-8 col-sm-offset-2">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
 						</div>
@@ -232,7 +232,7 @@ function thedux_hero_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="container pos-absolute pos-bottom text-center-xs">
+				<div class="container vh-po-absolute vh-po-bottom text-center-xs">
 					<div class="row">
 						<div class="col-sm-6">
 							'. do_shortcode(htmlspecialchars_decode($content)) .'
@@ -308,12 +308,12 @@ function thedux_hero_shortcode_vc() {
 					"heading" => __("Hero Height", 'caviar'),
 					"param_name" => "slider_height",
 					"value" => array(
-						'100vh' => 'height-100',
-						'90vh' => 'height-90',
-						'80vh' => 'height-80',
-						'70vh' => 'height-70',
-						'60vh' => 'height-60',
-						'50vh' => 'height-50',
+						'100vh' => 'v__height-100',
+						'90vh' => 'v__height-90',
+						'80vh' => 'v__height-80',
+						'70vh' => 'v__height-70',
+						'60vh' => 'v__height-60',
+						'50vh' => 'v__height-50',
 					)
 				),
 				array(

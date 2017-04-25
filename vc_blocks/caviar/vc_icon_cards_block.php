@@ -10,7 +10,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 				'title' => '',
 				'icon' => '',
 				'layout' => 'standard',
-				'alignment' => 'standard',
+				'alignment' => 'text-left',
 			), $atts 
 		) 
 	);
@@ -19,7 +19,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<div class="feature feature-1 '. esc_attr($alignment) .'">
-				<i class="icon--caviar '. esc_attr($icon) .'"></i>
+				<i class="icon--caviar icon '. esc_attr($icon) .'"></i>
 				<h5>'. htmlspecialchars_decode($title) .'</h5>
 				'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
 			</div>
@@ -29,7 +29,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<div class="feature feature-1 '. esc_attr($alignment) .'">
-				<i class="icon--caviar '. esc_attr($icon) .'"></i>
+				<i class="icon--caviar icon '. esc_attr($icon) .'"></i>
 				<h6>'. htmlspecialchars_decode($title) .'</h6>
 				'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
 			</div>
@@ -57,7 +57,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<div class="feature boxed feature-1 '. esc_attr($alignment) .'">
-				<i class="icon--caviar '. esc_attr($icon) .'"></i>
+				<i class="icon--caviar icon '. esc_attr($icon) .'"></i>
 				<h5>'. htmlspecialchars_decode($title) .'</h5>
 				'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
 			</div>
@@ -96,7 +96,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		$output = '
 			<div class="feature feature-2 '. esc_attr($alignment) .'">
 				<div class="feature__title">
-					<i class="icon--caviar '. esc_attr($icon) .'"></i>
+					<i class="icon--caviar icon '. esc_attr($icon) .'"></i>
 					<h6>'. htmlspecialchars_decode($title) .'</h6>
 				</div>
 				'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
@@ -108,7 +108,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		$output = '
 			<div class="feature feature-3 '. esc_attr($alignment) .'">
 				<div class="feature__left">
-					<i class="icon--caviar '. esc_attr($icon) .'"></i>
+					<i class="icon--caviar icon '. esc_attr($icon) .'"></i>
 				</div>
 				<div class="feature__right">
 					<h6>'. htmlspecialchars_decode($title) .'</h6>
@@ -122,7 +122,7 @@ function thedux_icon_box_shortcode( $atts, $content = null ) {
 		$output = '
 			<div class="feature feature-3 '. esc_attr($alignment) .'">
 				<div class="feature__left">
-					<i class="icon--caviar '. esc_attr($icon) .' color--primary"></i>
+					<i class="icon--caviar icon '. esc_attr($icon) .' color--primary"></i>
 				</div>
 				<div class="feature__right">
 					<h5>'. htmlspecialchars_decode($title) .'</h5>
@@ -221,7 +221,7 @@ function thedux_icon_box_shortcode_vc() {
 					"heading" => esc_html__("Alignment", 'caviar'),
 					"param_name" => "alignment",
 					"value" => array(
-						'Text Left' => 'standard',
+						'Text Left' => 'text-left',
 						'Text Center' => 'text-center',
 						'Text Right' => 'text-right'
 					)

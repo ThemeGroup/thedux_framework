@@ -11,6 +11,9 @@ function thedux_feature_product_list_shortcode( $atts ) {
 				'subtitle' => '',
 				'pppage' => '10',
 				'filter' => 'all',
+				'type_filter' => 'feature',
+				'feature' => '',
+				'category' => '',
 			), $atts 
 		) 
 	);
@@ -18,16 +21,9 @@ function thedux_feature_product_list_shortcode( $atts ) {
 	/**
 	 * Setup post query
 	 */
-	$meta_query   = WC()->query->get_meta_query();
-	$meta_query[] = array(
-		'key'   => '_featured',
-		'value' => 'yes'
-	);
-
 	$query_args = array(
 		'post_type' => 'product',
-		'posts_per_page' => $pppage,
-		'meta_query'  =>  $meta_query
+		'posts_per_page' => $pppage
 	);
 	
 	if (!( $filter == 'all' )) {
@@ -41,6 +37,40 @@ function thedux_feature_product_list_shortcode( $atts ) {
 				'terms' => $filter
 			)
 		);
+	}
+	
+	if($type_filter == 'feature'){
+		if( ! empty( $feature ) ){
+			
+			switch ( $feature ) {
+				case 'featured':
+					$query_args['meta_query'][] = array(
+						'key'   => '_featured',
+						'value' => 'yes',
+					);
+					break;
+
+				case 'sale':
+					$query_args['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
+					break;
+
+				default:
+					break;
+			}
+			
+		}
+	}
+	
+	if($type_filter == 'category'){
+		if ( empty( $category ) ) {
+			$categories = get_terms( 'product_cat' );
+		} else {
+			$categories = get_terms( array(
+				'taxonomy' => 'product_cat',
+				'slug'     => explode( ',', trim( $category ) ),
+			) );
+			$query_args['product_cat'] = $category;
+		}
 	}
 	
 	global $wp_query;
@@ -118,6 +148,48 @@ function thedux_feature_product_list_shortcode_vc() {
 					"heading" => esc_html__("Show How Many Products?", 'caviar'),
 					"param_name" => "pppage",
 					"value" => '10'
+				),
+				array(
+					'heading'     => esc_html__( 'Filter Type', 'caviar' ),
+					'description' => esc_html__( 'Select how to group products in grid', 'caviar' ),
+					'param_name'  => 'type_filter',
+					'type'        => 'dropdown',
+					'value'       => array(
+						esc_html__( 'Group by feature', 'caviar' )  => 'feature',
+						esc_html__( 'Group by category', 'caviar' ) => 'category',
+					),
+				),
+				array(
+					"type" => "dropdown",
+					'heading' => esc_html__( 'Feature attribute', 'caviar' ),
+					"param_name" => "feature",
+					"value" => array(
+						"All Products" => '',
+						"Recent Products" => 'recent',
+						"Featured Products" => 'featured',
+						"Sale Products" => 'sale',
+					),
+					'dependency'  => array(
+						'element' => 'type_filter',
+						'value'   => 'feature',
+					),
+					
+				),
+				array(
+					'heading'     => esc_html__( 'Categories', 'caviar' ),
+					'description' => esc_html__( 'Select what categories you want to use. Leave it empty to use all categories.', 'caviar' ),
+					'param_name'  => 'category',
+					'type'        => 'autocomplete',
+					'value'       => '',
+					'settings'    => array(
+						'multiple' => true,
+						'sortable' => true,
+						'values'   => thedux_get_terms(),
+					),
+					'dependency'  => array(
+						'element' => 'type_filter',
+						'value'   => 'category',
+					),
 				),
 			)
 		)

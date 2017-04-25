@@ -9,7 +9,7 @@ function thedux_slider_shortcode( $atts, $content = null ) {
 			array(
 				'type' => 'standard',
 				'parallax' => 'parallax',
-				'slider_height' => 'height-100',
+				'slider_height' => 'v__height-100',
 				'arrows' => 'true',
 				'paging' => 'true',
 				'timing' => 5000
@@ -18,7 +18,7 @@ function thedux_slider_shortcode( $atts, $content = null ) {
 	);
 	
 	$output = '
-		<section class="slider slider--animate '. $slider_height .' cover cover-5 parallax" data-animation="fade" data-arrows="'. $arrows .'" data-paging="'. $paging .'" data-timing="'. $timing .'">
+		<section class="slider slider--animate '. $slider_height .' cover cover-5" data-animation="fade" data-arrows="'. $arrows .'" data-paging="'. $paging .'" data-timing="'. $timing .'">
 			<ul class="slides">
 				'. do_shortcode($content) .'
 			</ul>
@@ -44,10 +44,10 @@ function thedux_slider_content_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<li class="imagebg" data-overlay="'. $overlay_opacity .'">
-			<div class="image-bg-wrap background-image-holder">
+			<div class="image-bg-wrap">
 				'. wp_get_attachment_image( $image, 'full' ) .'
 			</div>
-			<div class="container pos-vertical-center">
+			<div class="container vh-po-vertical-center">
 				<div class="row">
 					<div class="col-sm-12">
 						'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
@@ -80,12 +80,12 @@ function thedux_slider_shortcode_vc() {
 		    		"heading" => __("Sider Height", 'caviar'),
 		    		"param_name" => "slider_height",
 		    		"value" => array(
-		    			'100vh' => 'height-100',
-		    			'90vh' => 'height-90',
-		    			'80vh' => 'height-80',
-		    			'70vh' => 'height-70',
-		    			'60vh' => 'height-60',
-		    			'50vh' => 'height-50',
+		    			'100vh' => 'v__height-100',
+		    			'90vh' => 'v__height-90',
+		    			'80vh' => 'v__height-80',
+		    			'70vh' => 'v__height-70',
+		    			'60vh' => 'v__height-60',
+		    			'50vh' => 'v__height-50',
 		    		)
 		    	),
 		    	array(

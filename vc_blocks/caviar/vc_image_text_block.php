@@ -17,7 +17,7 @@ function thedux_text_image_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="imageblock">
-				<div class="imageblock__content col-md-6 col-sm-4 pos-left">
+				<div class="imageblock__content col-md-6 col-sm-4 vh-po-left">
 					<div class="image-bg-wrap background-image-holder">
 						'. wp_get_attachment_image( $image, 'full' ) .'
 					</div>
@@ -34,7 +34,7 @@ function thedux_text_image_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="imageblock about-1">
-			    <div class="imageblock__content col-md-5 col-sm-4 pos-right">
+			    <div class="imageblock__content col-md-5 col-sm-4 vh-po-right">
 			        <div class="image-bg-wrap background-image-holder">
 			            '. wp_get_attachment_image( $image, 'full' ) .'
 			        </div>
@@ -55,7 +55,7 @@ function thedux_text_image_shortcode( $atts, $content = null ) {
 		
 		$output = '
 			<section class="imageblock about-1">
-			    <div class="imageblock__content col-md-5 col-sm-4 pos-left">
+			    <div class="imageblock__content col-md-5 col-sm-4 vh-po-left">
 			        <div class="image-bg-wrap background-image-holder">
 			            '. wp_get_attachment_image( $image, 'full' ) .'
 			        </div>
@@ -76,7 +76,7 @@ function thedux_text_image_shortcode( $atts, $content = null ) {
 	
 		$output = '
 			<section class="imageblock">
-				<div class="imageblock__content col-md-6 col-sm-4 pos-right">
+				<div class="imageblock__content col-md-6 col-sm-4 vh-po-right">
 					<div class="image-bg-wrap background-image-holder">
 						'. wp_get_attachment_image( $image, 'full' ) .'
 					</div>
@@ -96,7 +96,7 @@ function thedux_text_image_shortcode( $atts, $content = null ) {
 				<div class="image-bg-wrap background-image-holder">
 					'. wp_get_attachment_image( $image, 'full' ) .'
 				</div>
-				<div class="pos-vertical-center text-center">
+				<div class="vh-po-vertical-center text-center">
 					'. do_shortcode($content) .'
 				</div>
 			</div>
