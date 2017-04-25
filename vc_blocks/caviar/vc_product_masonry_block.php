@@ -23,9 +23,13 @@ function thedux_product_masonry_shortcode( $atts ) {
 	/**
 	 * Setup post query
 	 */
+
+	$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+	
 	$query_args = array(
 		'post_type' => 'product',
-		'posts_per_page' => $pppage
+		'posts_per_page' => $pppage,
+		'paged'          => $paged
 	);
 	
 	if (!( $filter == 'all' )) {
@@ -56,13 +60,6 @@ function thedux_product_masonry_shortcode( $atts ) {
 					$query_args['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
 					break;
 
-				case 'best_sellers':
-					$query_args['meta_key'] = 'total_sales';
-					$query_args['orderby']  = 'meta_value_num';
-					break;
-
-				case 'top_rated':
-					break;
 				default:
 					break;
 			}
