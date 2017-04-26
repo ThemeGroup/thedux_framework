@@ -91,10 +91,10 @@ function thedux_blog_posts_shortcode( $atts ) {
 							</div>
 							<?php endif; ?>
 							<div class="latest-post__body text-center">
-								<a class="latest-post__title" href="<?php the_permalink() ?>">
+								<a class="latest-post__title ajax-link" href="<?php the_permalink() ?>">
 									<?php the_title() ?>
 								</a>
-								<p class="latest-post__bottom"><a href="<?php the_permalink() ?>" class="btn btn--border btn--sm"><?php esc_html_e('Read More','caviar') ?></a> </p>
+								<p class="latest-post__bottom"><a href="<?php the_permalink() ?>" class="btn btn--border btn--sm ajax-link"><?php esc_html_e('Read More','caviar') ?></a> </p>
 							</div>
 						</div>
 					<?php
