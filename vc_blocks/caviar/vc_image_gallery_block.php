@@ -14,14 +14,18 @@ function thedux_image_gallery_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<div class="masonry-contained">
-			<div class="row">
-				<div class="masonry">
-					<div class="masonry__filters" data-filter-all-text="'. $class .'"></div>
+			<div class="masonry">
+				<div class="masonry-filter-container text-center">
+					<div class="masonry-filter-holder">
+						<div class="masonry__filters" data-filter-all-text="'. $class .'"></div>
+					</div>
+				</div>
+				<div class="row">
 					<div class="masonry__container masonry--animate">
 						'. do_shortcode($content) .'
 					</div><!--end masonry container-->
-				</div>
-			</div><!--end of row-->
+				</div><!--end of row-->
+			</div>
 		</div><!--end of container-->
 	';
 	
@@ -90,7 +94,7 @@ function thedux_image_gallery_content_shortcode_vc() {
 			"icon" => 'caviar-vc-block',
 		    'name'            => esc_html__('Lightbox Gallery Content', 'caviar'),
 		    'base'            => 'caviar_image_gallery_content',
-		    'description'     => esc_html__( 'Toggle Content Element', 'caviar' ),
+		    'description'     => esc_html__( 'Lightbox Gallery Content Element', 'caviar' ),
 		    "category" => esc_html__('Caviar Theme', 'caviar'),
 		    'content_element' => true,
 		    'as_child'        => array('only' => 'caviar_image_gallery'), // Use only|except attributes to limit parent (separate multiple values with comma)

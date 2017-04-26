@@ -14,10 +14,16 @@ function thedux_modal_gallery_wide_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<div class="wide-grid masonry masonry-videos">
-			<div class="masonry__filters" data-filter-all-text="'. $text .'"></div>
-			<div class="masonry__container masonry--animate">
-				'. do_shortcode($content) .'
-			</div><!--end masonry container-->
+			<div class="masonry-filter-container text-center">
+				<div class="masonry-filter-holder">
+					<div class="masonry__filters" data-filter-all-text="'. $text .'"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="masonry__container masonry--animate">
+					'. do_shortcode($content) .'
+				</div><!--end masonry container-->
+			</div><!--end of row-->
 		</div>
 	';
 	
@@ -46,15 +52,19 @@ function thedux_modal_gallery_wide_content_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<div class="col-md-4 col-sm-6 col-xs-12 masonry__item" data-masonry-filter="'. $class .'">
-			<div class="hover-element hover-element-1" data-title-position="center,center">
-				<h5>'. $hover_title .'</h5>
-				<div class="hover-element__initial">
+			<div class="hover-element__box hover-element hover-element-1">
+				<div class="hover-element__thumb">
+					<div class="image-bg-wrap__">
 					'. wp_get_attachment_image( $image, 'large' ) .'
+					</div>
 				</div>
-				<div class="hover-element__reveal" data-overlay="9">
+				<div class="hover-element__overlay" data-hover-opacity="0"></div>
+				<div class="hover-element__description">
+				<div class="collection-thumb__title text-center" data-v-pos="" data-h-pos="">
+					<h5>'. $hover_title .'</h5>
 					<div class="modal-instance">
 						<div class="btn-round modal-trigger">
-							<i class="icon-File-HorizontalText caviar--icon color--primary"></i>
+							<span class="icon-File-HorizontalText icon caviar--icon color--primary"></span>
 						</div>
 						<div class="modal-container">
 							<div class="modal-content height--natural">
@@ -94,7 +104,7 @@ function thedux_modal_gallery_wide_content_shortcode( $atts, $content = null ) {
 		$output .= '
 					<div class="modal-instance">
 						<div class="btn-round modal-trigger">
-							<i class="icon-Video-5 caviar--icon color--primary"></i>
+							<span class="icon-Video-5 icon caviar--icon color--primary"></span>
 						</div>
 						<div class="modal-container">
 							<div class="modal-content bg--dark" data-width="70%" data-height="50%">
@@ -105,7 +115,7 @@ function thedux_modal_gallery_wide_content_shortcode( $atts, $content = null ) {
 		';
 	}
 	
-	$output .= '
+	$output .= '</div>
 				</div>
 			</div><!--end hover element-->
 		</div><!--end item-->

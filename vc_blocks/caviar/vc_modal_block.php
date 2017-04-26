@@ -31,11 +31,7 @@ function thedux_modal_shortcode( $atts, $content = null ) {
 		$output = '
 			<div class="modal-instance modal-video-1">
 				<div class="'. $align .'">
-					<a class="btn modal-trigger" href="#">
-						<span class="btn__text">
-							&#9658; '. $button_text .'
-						</span>
-					</a>
+					<a class="video-play-icon video-play-icon--sm modal-trigger" href="#"></a>
 				</div>
 				<div class="modal-container" '. $delay .'>
 					<div class="modal-content bg-dark" data-width="'. (int) $width .'%" data-height="'. (int) $height .'%">
@@ -64,7 +60,7 @@ function thedux_modal_shortcode( $atts, $content = null ) {
 						<div class="image-bg-wrap background-image-holder">
 							'. wp_get_attachment_image( $image, 'full' ) .'
 						</div>
-						<div class="pos-vertical-center clearfix">
+						<div class="vh-po-vertical-center clearfix">
 							<div class="col-sm-6 col-sm-offset-1">
 			';
 			
