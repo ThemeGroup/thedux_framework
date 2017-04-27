@@ -12,6 +12,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 				'filter' => 'all',
 				'show_filter' => 'yes',
 				'type_filter' => 'feature',
+				'group_by' => 'feature',
 				'feature' => '',
 				'category'      => '',
 				'all_text'		=> 'All Products',
@@ -45,7 +46,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 		);
 	}
 	
-	if($type_filter == 'feature'){
+	if($group_by == 'feature'){
 		if( ! empty( $feature ) ){
 			
 			switch ( $feature ) {
@@ -67,7 +68,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 		}
 	}
 	
-	if($type_filter == 'category'){
+	if($group_by == 'category'){
 		if ( empty( $category ) ) {
 			$categories = get_terms( 'product_cat' );
 		} else {
@@ -213,8 +214,17 @@ function thedux_product_masonry_shortcode_vc() {
 				),
 				array(
 					'heading'     => esc_html__( 'Filter Type', 'caviar' ),
-					'description' => esc_html__( 'Select how to group products in grid', 'caviar' ),
 					'param_name'  => 'type_filter',
+					'type'        => 'dropdown',
+					'value'       => array(
+						esc_html__( 'Feature', 'caviar' )  => 'feature',
+						esc_html__( 'Category', 'caviar' ) => 'category',
+					),
+				),
+				array(
+					'heading'     => esc_html__( 'Product group by', 'caviar' ),
+					'description' => esc_html__( 'Select how to group products in grid', 'caviar' ),
+					'param_name'  => 'group_by',
 					'type'        => 'dropdown',
 					'value'       => array(
 						esc_html__( 'Group by feature', 'caviar' )  => 'feature',
@@ -232,7 +242,7 @@ function thedux_product_masonry_shortcode_vc() {
 						"Sale Products" => 'sale',
 					),
 					'dependency'  => array(
-						'element' => 'type_filter',
+						'element' => 'group_by',
 						'value'   => 'feature',
 					),
 					
@@ -249,7 +259,7 @@ function thedux_product_masonry_shortcode_vc() {
 						'values'   => thedux_get_terms(),
 					),
 					'dependency'  => array(
-						'element' => 'type_filter',
+						'element' => 'group_by',
 						'value'   => 'category',
 					),
 				),
