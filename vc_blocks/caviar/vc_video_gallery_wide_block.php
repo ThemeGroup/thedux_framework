@@ -14,10 +14,16 @@ function thedux_video_gallery_wide_shortcode( $atts, $content = null ) {
 	
 	$output = '
 		<section class="wide-grid masonry masonry-videos bg--dark">
-			<div class=""masonry__filters masonry__filters--outside text-center" data-filter-all-text="'. $text .'"></div>
-			<div class="masonry__container masonry--animate">
-				'. do_shortcode($content) .'
-			</div><!--end masonry container-->
+			<div class="masonry-filter-container text-center">
+				<div class="masonry-filter-holder">
+					<div class="masonry__filters masonry__filters--outside text-center" data-filter-all-text="'. $text .'"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="masonry__container masonry--animate">
+					'. do_shortcode($content) .'
+				</div><!--end masonry container-->
+			</div><!--end of row-->
 		</section>
 	';
 	
@@ -50,7 +56,6 @@ function thedux_video_gallery_wide_content_shortcode( $atts, $content = null ) {
 				</div>
 				<div class="portfolio-item__title">
 					<h5>'. $title .'</h5>
-					<span><em>'. ucfirst($class) .'</em></span>
 				</div>
 				<div class="video-play-icon video-play-icon--sm"></div>
 				'. wp_oembed_get($embed, array('height' => '400')) .'
