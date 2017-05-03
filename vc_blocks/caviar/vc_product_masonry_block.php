@@ -46,6 +46,31 @@ function thedux_product_masonry_shortcode( $atts ) {
 		);
 	}
 	
+	$group_filters = array();
+	if($type_filter == 'feature'){
+		if( empty( $feature ) ) {
+			$group_filters[] = esc_html__( 'New Products', 'caviar' );
+			$group_filters[] = esc_html__( 'Hot Products', 'caviar' );
+			$group_filters[] = esc_html__( 'Sale Products', 'caviar' );
+		}
+	}
+	
+	if($type_filter == 'category'){
+		if ( empty( $category ) ) {
+			$categories = get_terms( 'product_cat' );
+		} else {
+			$categories = get_terms( array(
+				'taxonomy' => 'product_cat',
+				'slug'     => explode( ',', trim( $category ) ),
+			) );
+		}
+		if ( ! empty( $categories ) && ! is_wp_error( $categories ) ){
+			foreach ( $categories as $cat_term ) {
+				$group_filters[] = $cat_term->name;
+			}
+		}
+	}
+	
 	if($group_by == 'feature'){
 		if( ! empty( $feature ) ){
 			
@@ -70,7 +95,10 @@ function thedux_product_masonry_shortcode( $atts ) {
 	
 	if($group_by == 'category'){
 		if ( empty( $category ) ) {
-			$categories = get_terms( 'product_cat' );
+			$categories = get_terms( array(
+				'taxonomy' => 'product_cat',
+				'hide_empty' => false,
+			) );
 		} else {
 			$categories = get_terms( array(
 				'taxonomy' => 'product_cat',
@@ -96,7 +124,16 @@ function thedux_product_masonry_shortcode( $atts ) {
 			<?php if( $show_filter == 'yes' ): ?>
 			<div class="masonry-filter-container text-center">
 				<div class="masonry-filter-holder">
-					<div class="masonry__filters product-uppercase-filter" data-filter-all-text="<?php echo esc_html($all_text) ?>"></div>
+					<div class="masonry__filters product-uppercase-filter"><ul>
+						<li class="active" data-masonry-filter="*"><?php echo esc_html($all_text) ?></li>
+						<?php
+						foreach($group_filters as $group_filter){
+						?>
+						<li data-masonry-filter="<?php echo sanitize_title($group_filter) ?>"><?php echo esc_html($group_filter) ?></li>
+						<?php
+						}
+						?>
+					</ul></div>
 				</div>
 			</div>
 			<?php endif; ?>
