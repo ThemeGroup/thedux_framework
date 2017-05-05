@@ -152,7 +152,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 		echo paginate_links( apply_filters( 'woocommerce_pagination_args', array(
 			'base'         	=> esc_url( str_replace( 999999999, '%#%', remove_query_arg( array( 'add-to-cart', 'shop_load', '_', 'infload', 'ajax_filters' ), get_pagenum_link( 999999999, false ) ) ) ),
 			'format'       	=> '',
-			'current'      	=> max( 1, get_query_var( 'paged' ) ),
+			'current'      	=> max( 1, $paged ),
 			'total'        	=> $custom_query->max_num_pages,
 			'prev_text'		=> '&larr;',
 			'next_text'    	=> '&rarr;',
