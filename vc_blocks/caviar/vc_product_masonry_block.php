@@ -17,6 +17,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 				'category'      => '',
 				'all_text'		=> 'All Products',
 				'load_more'     => false,
+				'tab_id' => '',
 			), $atts 
 		) 
 	);
@@ -25,7 +26,13 @@ function thedux_product_masonry_shortcode( $atts ) {
 	 * Setup post query
 	 */
 
-	$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+	if ( get_query_var('paged') ) {
+		$paged = get_query_var('paged');
+	} elseif ( get_query_var('page') ) { // 'page' is used instead of 'paged' on Static Front Page
+		$paged = get_query_var('page');
+	} else {
+		$paged = 1;
+	}
 	
 	$query_args = array(
 		'post_type' => 'product',
@@ -44,31 +51,6 @@ function thedux_product_masonry_shortcode( $atts ) {
 				'terms' => $filter
 			)
 		);
-	}
-	
-	$group_filters = array();
-	if($type_filter == 'feature'){
-		if( empty( $feature ) ) {
-			$group_filters[] = esc_html__( 'New Products', 'caviar' );
-			$group_filters[] = esc_html__( 'Hot Products', 'caviar' );
-			$group_filters[] = esc_html__( 'Sale Products', 'caviar' );
-		}
-	}
-	
-	if($type_filter == 'category'){
-		if ( empty( $category ) ) {
-			$categories = get_terms( 'product_cat' );
-		} else {
-			$categories = get_terms( array(
-				'taxonomy' => 'product_cat',
-				'slug'     => explode( ',', trim( $category ) ),
-			) );
-		}
-		if ( ! empty( $categories ) && ! is_wp_error( $categories ) ){
-			foreach ( $categories as $cat_term ) {
-				$group_filters[] = $cat_term->name;
-			}
-		}
 	}
 	
 	if($group_by == 'feature'){
@@ -108,9 +90,12 @@ function thedux_product_masonry_shortcode( $atts ) {
 		}
 	}
 	
+	$custom_query = new WP_Query( $query_args );
+	
 	global $wp_query, $shop_columns, $product_filter, $product_feature;
 	$old_query = $wp_query;
-	$wp_query = new WP_Query( $query_args );
+	$wp_query = NULL;
+	$wp_query = $custom_query;
 	
 	$shop_columns = $columns;
 	$product_filter = $type_filter;
@@ -119,20 +104,16 @@ function thedux_product_masonry_shortcode( $atts ) {
 	ob_start();
 
 	?>
-	<div class="caviar__shop-catalog-content">
+	<div class="caviar__shop-catalog-content" id="<?php echo esc_html($tab_id) ?>">
 		<div class="masonry masonry-shop">
 			<?php if( $show_filter == 'yes' ): ?>
 			<div class="masonry-filter-container text-center">
 				<div class="masonry-filter-holder">
 					<div class="masonry__filters product-uppercase-filter"><ul>
 						<li class="active" data-masonry-filter="*"><?php echo esc_html($all_text) ?></li>
-						<?php
-						foreach($group_filters as $group_filter){
-						?>
-						<li data-masonry-filter="<?php echo sanitize_title($group_filter) ?>"><?php echo esc_html($group_filter) ?></li>
-						<?php
-						}
-						?>
+						<li data-masonry-filter="new"><?php echo esc_html__( 'New Products', 'caviar' ) ?></li>
+						<li data-masonry-filter="top"><?php echo esc_html__( 'Top Products', 'caviar' ) ?></li>
+						<li data-masonry-filter="sale"><?php echo esc_html__( 'Sale Products', 'caviar' ) ?></li>
 					</ul></div>
 				</div>
 			</div>
@@ -140,7 +121,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 			<div class="row">
 				<div class="masonry__container <?php echo esc_attr(get_option('animated_masonry', 'masonry--animate')); ?>">
 					<?php
-						if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
+						if ( $custom_query->have_posts() ) : while ( $custom_query->have_posts() ) : $custom_query->the_post();
 						
 							/**
 							 * Get blog posts by blog layout.
@@ -162,7 +143,9 @@ function thedux_product_masonry_shortcode( $atts ) {
 			</div><!--end row-->
 		</div><!--end masonry-->
 	<?php
-	if ( isset( $load_more ) && $load_more && $wp_query->max_num_pages > 1 ) {
+	wp_reset_postdata();
+	
+	if ( isset( $load_more ) && $load_more && $custom_query->max_num_pages > 1 ) {
 	?>
 	<nav class="woocommerce-pagination caviar-pagination caviar__load-more">
 		<?php
@@ -170,7 +153,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 			'base'         	=> esc_url( str_replace( 999999999, '%#%', remove_query_arg( array( 'add-to-cart', 'shop_load', '_', 'infload', 'ajax_filters' ), get_pagenum_link( 999999999, false ) ) ) ),
 			'format'       	=> '',
 			'current'      	=> max( 1, get_query_var( 'paged' ) ),
-			'total'        	=> $wp_query->max_num_pages,
+			'total'        	=> $custom_query->max_num_pages,
 			'prev_text'		=> '&larr;',
 			'next_text'    	=> '&rarr;',
 			'type'         	=> 'list',
@@ -200,8 +183,8 @@ function thedux_product_masonry_shortcode( $atts ) {
 	
 	$output = ob_get_contents();
 	ob_end_clean();
-	
-	wp_reset_postdata();
+
+	$wp_query = NULL;
 	$wp_query = $old_query;
 	$product_filter = null;
 	$product_feature = null;
@@ -250,15 +233,6 @@ function thedux_product_masonry_shortcode_vc() {
 					)
 				),
 				array(
-					'heading'     => esc_html__( 'Filter Type', 'caviar' ),
-					'param_name'  => 'type_filter',
-					'type'        => 'dropdown',
-					'value'       => array(
-						esc_html__( 'Feature', 'caviar' )  => 'feature',
-						esc_html__( 'Category', 'caviar' ) => 'category',
-					),
-				),
-				array(
 					'heading'     => esc_html__( 'Product group by', 'caviar' ),
 					'description' => esc_html__( 'Select how to group products in grid', 'caviar' ),
 					'param_name'  => 'group_by',
@@ -273,10 +247,11 @@ function thedux_product_masonry_shortcode_vc() {
 					'heading' => esc_html__( 'Feature attribute', 'caviar' ),
 					"param_name" => "feature",
 					"value" => array(
-						"All Products" => '',
 						"Recent Products" => 'recent',
 						"Featured Products" => 'featured',
 						"Sale Products" => 'sale',
+						"Best Selling Products" => 'best_sellers',
+						"Top Rated Products"    => 'top_rated',
 					),
 					'dependency'  => array(
 						'element' => 'group_by',
@@ -315,6 +290,12 @@ function thedux_product_masonry_shortcode_vc() {
 					),
 					'description' => esc_html__( 'Show load more button with ajax loading', 'caviar' ),
 				),
+		    	array(
+		    		"type" => "hidden",
+		    		"heading" => esc_html__("Block ID", 'caviar'),
+		    		"param_name" => "tab_id",
+		    		"value" => 'caviar__shop-catalog-'.time().wp_rand( 1, 100 ),
+		    	),
 			)
 		) 
 	);
