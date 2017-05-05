@@ -25,7 +25,11 @@ function thedux_product_masonry_shortcode( $atts ) {
 	/**
 	 * Setup post query
 	 */
+	
+	global $wp_query, $paged, $shop_columns, $product_filter, $product_feature;
 
+	$paged = NULL;
+	
 	if ( get_query_var('paged') ) {
 		$paged = get_query_var('paged');
 	} elseif ( get_query_var('page') ) { // 'page' is used instead of 'paged' on Static Front Page
@@ -92,7 +96,6 @@ function thedux_product_masonry_shortcode( $atts ) {
 	
 	$custom_query = new WP_Query( $query_args );
 	
-	global $wp_query, $shop_columns, $product_filter, $product_feature;
 	$old_query = $wp_query;
 	$wp_query = NULL;
 	$wp_query = $custom_query;
@@ -143,7 +146,6 @@ function thedux_product_masonry_shortcode( $atts ) {
 			</div><!--end row-->
 		</div><!--end masonry-->
 	<?php
-	wp_reset_postdata();
 	
 	if ( isset( $load_more ) && $load_more && $custom_query->max_num_pages > 1 ) {
 	?>
@@ -163,7 +165,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 		?>
 	</nav>
 
-	<div class="caviar__load-more-link"><?php next_posts_link( '&nbsp;' ); ?></div>
+	<div class="caviar__load-more-link"><?php next_posts_link( '&nbsp;', $custom_query->max_num_pages ); ?></div>
 
 	<div class="caviar__load-more-controls button-mode">
 		<a href="#" class="btn btn--dark caviar__load-more-btn"><?php esc_html_e( 'Load More', 'caviar' ); ?></a>
@@ -180,15 +182,16 @@ function thedux_product_masonry_shortcode( $atts ) {
 	?>
 	</div>
 	<?php
-	
+	wp_reset_postdata();
 	$output = ob_get_contents();
 	ob_end_clean();
-
+	$paged = NULL;
 	$wp_query = NULL;
 	$wp_query = $old_query;
+	$custom_query = NULL;
 	$product_filter = null;
 	$product_feature = null;
-	
+
 	return $output;
 }
 add_shortcode( 'caviar_product_masonry', 'thedux_product_masonry_shortcode' );
