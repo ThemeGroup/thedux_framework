@@ -14,7 +14,7 @@ function thedux_block_title_shortcode ( $atts ) {
 		)
 	);
 	
-	$output = '<div class="caviar-block-title '.$type.'"><h4 class="type--uppercase">'. htmlspecialchars_decode($title) .'</h4></div>';
+	$output = '<div class="caviar-block-title '.$type.'"><h4>'. htmlspecialchars_decode($title) .'</h4></div>';
 	
 	return $output;
 }
@@ -39,6 +39,7 @@ function thedux_block_title_shortcode_vc(){
 						'Default' => '',
 						'Custom 1' => 'block-title__1',
 						'Custom 2' => 'block-title__2',
+						'Custom 3' => 'block-title__3',
 					)
 				),
 				array(
