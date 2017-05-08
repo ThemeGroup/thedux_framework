@@ -78,8 +78,10 @@ function thedux_button_shortcode_vc() {
 						"Shadow White" => 'btn--shadow btn--white',
 						"Underline" => 'btn--underline',
 						"Underline Dark" => 'btn--underline--dark',
+						"Underline Light" => 'btn--underline--light',
 						"Border" => 'btn--border',
 						"Border Dark" => 'btn--border--dark',
+						"Border Light" => 'btn--border--light',
 					)
 				),
 				array(
