@@ -374,7 +374,9 @@ function thedux_hover_tile_shortcode_vc() {
 						"Shadow" => 'btn--shadow',
 						"Shadow White" => 'btn--shadow btn--white',
 						"Underline" => 'btn--underline',
+						"Underline Dark" => 'btn--underline--dark',
 						"Border" => 'btn--border',
+						"Border Dark" => 'btn--border--dark',
 					)
 				),
 				array(

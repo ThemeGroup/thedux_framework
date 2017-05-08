@@ -43,11 +43,11 @@ function thedux_slider_content_shortcode( $atts, $content = null ) {
 	);
 	
 	$output = '
-		<li class="imagebg" data-overlay="'. $overlay_opacity .'">
+		<li class="" data-overlay="'. $overlay_opacity .'">
 			<div class="image-bg-wrap">
 				'. wp_get_attachment_image( $image, 'full' ) .'
 			</div>
-			<div class="container vh-po-vertical-center">
+			<div class="container slider-content vh-po-vertical-center">
 				<div class="row">
 					<div class="col-sm-12">
 						'. wpautop(do_shortcode(htmlspecialchars_decode($content))) .'
