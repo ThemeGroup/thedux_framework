@@ -18,11 +18,7 @@ function thedux_button_shortcode( $atts ) {
 		) 
 	);
 	
-	$output = '
-		<a class="btn '.$type.' '.$size.' '.$animation.' '.$custom_css.'" href="'.$link.'">
-			<span class="btn__text">'. ( ($icon != '' && $icon != 'none') ? '<i class="'.$icon.'"></i>' : '' ) .' '.$button_text.' </span>
-		</a>
-	';
+	$output = '<a class="btn '.$type.' '.$size.' '.$animation.' '.$custom_css.'" href="'.$link.'"><span class="btn__text">'. ( ($icon != '' && $icon != 'none') ? '<i class="'.$icon.'"></i>' : '' ) .' '.$button_text.' </span></a>';
 	
 	return $output;
 }
