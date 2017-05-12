@@ -23,6 +23,7 @@ function thedux_framework_register_caviar_blocks(){
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_image_gallery_wide_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_image_text_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_inline_video_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_instafeed_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_modal_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_modal_gallery_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_modal_gallery_wide_block.php');
