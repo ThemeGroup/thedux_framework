@@ -50,7 +50,7 @@ function thedux_instafeed_shortcode_vc() {
 				),
 				array(
 					"type" => "textfield",
-					"heading" => esc_html__("User ID", 'caviar'),
+					"heading" => esc_html__("Client ID", 'caviar'),
 					"param_name" => "user_id",
 					"value" => ""
 				),
