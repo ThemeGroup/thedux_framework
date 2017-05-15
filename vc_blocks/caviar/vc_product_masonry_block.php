@@ -122,7 +122,7 @@ function thedux_product_masonry_shortcode( $atts ) {
 			</div>
 			<?php endif; ?>
 			<div class="row">
-				<div class="masonry__container <?php echo esc_attr(get_option('animated_masonry', 'masonry--animate')); ?>">
+				<div class="masonry__container">
 					<?php
 						if ( $custom_query->have_posts() ) : while ( $custom_query->have_posts() ) : $custom_query->the_post();
 						
