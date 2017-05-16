@@ -8,7 +8,6 @@ function thedux_instafeed_shortcode( $atts ) {
 		shortcode_atts(
 			array(
 				'access_token' => '',
-				'user_id' => '',
 				'user_name' => '',
 				'imgsize' => 'medium',
 				'photos' => '20',
@@ -25,7 +24,7 @@ function thedux_instafeed_shortcode( $atts ) {
 		$columns = 8;
 	}
 	
-	$output = '<div class="instafeed '.(($gap=='none')?'instafeed--nogap':'').'" data-access-token="'.esc_attr($access_token).'" data-client-id="'.esc_attr($user_id).'" data-user-name="'.esc_attr($user_name).'" data-res="'.esc_attr($imgsize).'" data-amount="'.esc_attr($photos).'" data-grid="'.esc_attr($columns).'">';
+	$output = '<div class="instafeed '.(($gap=='none')?'instafeed--nogap':'').'" data-access-token="'.esc_attr($access_token).'" data-user-name="'.esc_attr($user_name).'" data-res="'.esc_attr($imgsize).'" data-amount="'.esc_attr($photos).'" data-grid="'.esc_attr($columns).'"></div>';
 	
 	return $output;
 }
@@ -46,12 +45,6 @@ function thedux_instafeed_shortcode_vc() {
 					"type" => "textfield",
 					"heading" => esc_html__("Access Token", 'caviar'),
 					"param_name" => "access_token",
-					"value" => ""
-				),
-				array(
-					"type" => "textfield",
-					"heading" => esc_html__("User ID", 'caviar'),
-					"param_name" => "user_id",
 					"value" => ""
 				),
 				array(
