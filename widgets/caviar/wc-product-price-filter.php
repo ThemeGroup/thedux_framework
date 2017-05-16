@@ -157,7 +157,7 @@ class THEDUX_WC_Widget_Price_Filter extends WC_Widget {
                 }
             }
         }
-        $output . '</ul>';
+        $output .= '</ul>';
 
         echo $output;
 

@@ -114,7 +114,7 @@ function thedux_blog_posts_shortcode( $atts ) {
 					if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
 					?>
 						<div class="shortcode__latest-post <?php echo $blog_columns ?> masonry__item">
-							<article class="blog-content">
+							<div class="blog-content">
 								<?php if( has_post_thumbnail() ) : ?>
 								<div class="latest-post_thumb">
 									<a href="<?php the_permalink() ?>" class="block ajax-link">
@@ -124,7 +124,7 @@ function thedux_blog_posts_shortcode( $atts ) {
 								<?php endif; ?>
 								<a class="ajax-link" href="<?php the_permalink() ?>"><h3><?php the_title()?></h3></a>
 								<p><?php echo wp_trim_words( get_the_content(), 20 ); ?> <a href="<?php the_permalink() ?>"><?php esc_html_e('More','caviar') ?> ➜</a></p>
-							</article>
+							</div>
 						</div>
 					<?php
 					endwhile;	
@@ -143,7 +143,7 @@ function thedux_blog_posts_shortcode( $atts ) {
 					if ( $wp_query->have_posts() ) : while ( $wp_query->have_posts() ) : $wp_query->the_post();
 					?>
 						<div class="shortcode__latest-post <?php echo $blog_columns ?> masonry__item">
-							<article class="blog-content">
+							<div class="blog-content">
 								<?php if( has_post_thumbnail() ) : ?>
 								<div class="latest-post_thumb">
 									<a href="<?php the_permalink() ?>" class="block ajax-link">
@@ -163,7 +163,7 @@ function thedux_blog_posts_shortcode( $atts ) {
 								<?php endif; ?>
 								<a class="ajax-link" href="<?php the_permalink() ?>"><?php the_title()?></a>
 								<p><?php echo wp_trim_words( get_the_content(), 15 ); ?></p>
-							</article>
+							</div>
 						</div>
 					<?php
 					endwhile;	
