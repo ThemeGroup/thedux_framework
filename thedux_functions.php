@@ -4,31 +4,31 @@ function thedux_framework_functions_backfill(){
 	
 	if(!( function_exists('thedux_get_portfolio_layouts') )){
 		function thedux_get_portfolio_layouts(){
-			return array('Please Switch to a dzungnova Theme for this feature' => 'Please Switch to a dzungnova Theme for this feature');	
+			return array('Please Switch to a Themedeux Theme for this feature' => 'Please Switch to a Themedeux Theme for this feature');
 		}
 	}
 	
 	if(!( function_exists('thedux_get_blog_layouts') )){
 		function thedux_get_blog_layouts(){
-			return array('Please Switch to a dzungnova Theme for this feature' => 'Please Switch to a dzungnova Theme for this feature');	
+			return array('Please Switch to a Themedeux Theme for this feature' => 'Please Switch to a Themedeux Theme for this feature');
 		}
 	}
 	
 	if(!( function_exists('thedux_get_team_layouts') )){
 		function thedux_get_team_layouts(){
-			return array('Please Switch to a dzungnova Theme for this feature' => 'Please Switch to a dzungnova Theme for this feature');	
+			return array('Please Switch to a Themedeux Theme for this feature' => 'Please Switch to a Themedeux Theme for this feature');
 		}
 	}
 	
 	if(!( function_exists('thedux_get_shop_layouts') )){
 		function thedux_get_shop_layouts(){
-			return array('Please Switch to a dzungnova Theme for this feature' => 'Please Switch to a dzungnova Theme for this feature');	
+			return array('Please Switch to a Themedeux Theme for this feature' => 'Please Switch to a Themedeux Theme for this feature');
 		}
 	}
 	
 	if(!( function_exists('thedux_get_testimonial_layouts') )){
 		function thedux_get_testimonial_layouts(){
-			return array('Please Switch to a dzungnova Theme for this feature' => 'Please Switch to a dzungnova Theme for this feature');	
+			return array('Please Switch to a Themedeux Theme for this feature' => 'Please Switch to a Themedeux Theme for this feature');
 		}
 	}
 	
@@ -192,19 +192,4 @@ if(!( function_exists('thedux_hex2rgb') )){
 	   return $rgb; // returns an array with the rgb values
 	}
 }
-
-/**
- * Add an additional link to the theme options on the dashboard
- * 
- * @since 1.0.0
- * @author dzungnova
- */
-/*if(!( function_exists('thedux_framework_add_customize_page_link') )){
-	function thedux_framework_add_customize_page_link() {
-		$theme = wp_get_theme();
-		add_dashboard_page( $theme->get( 'Name' ) . ' Theme Readme', $theme->get( 'Name' ) . ' Theme Readme', 'edit_theme_options', 'themes.php?page=thedux_framework-getting-started' );
-	}
-	add_action ('admin_menu', 'thedux_framework_add_customize_page_link');
-}*/
-
 add_filter('widget_text', 'do_shortcode');
