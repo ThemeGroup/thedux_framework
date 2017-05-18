@@ -39,11 +39,16 @@ function thedux_product_masonry_shortcode( $atts ) {
 	}
 	
 	$product_visibility_term_ids = wc_get_product_visibility_term_ids();
-	
+
 	$query_args = array(
-		'post_type' => 'product',
+		'post_type'      => 'product',
 		'posts_per_page' => $pppage,
-		'paged'          => $paged
+		'paged'          => $paged,
+		'post_status'    => 'publish',
+		'meta_query'     => array(),
+		'tax_query'      => array(
+			'relation' => 'AND',
+		),
 	);
 
 	if (!( $filter == 'all' )) {
