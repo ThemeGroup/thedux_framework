@@ -43,12 +43,6 @@ function thedux_instafeed_shortcode_vc() {
 			"params" => array(
 				array(
 					"type" => "textfield",
-					"heading" => esc_html__("Access Token", 'caviar'),
-					"param_name" => "access_token",
-					"value" => ""
-				),
-				array(
-					"type" => "textfield",
 					"heading" => esc_html__("User Name", 'caviar'),
 					"param_name" => "user_name",
 					"value" => ""

@@ -38,12 +38,14 @@ function thedux_product_masonry_shortcode( $atts ) {
 		$paged = 1;
 	}
 	
+	$product_visibility_term_ids = wc_get_product_visibility_term_ids();
+	
 	$query_args = array(
 		'post_type' => 'product',
 		'posts_per_page' => $pppage,
 		'paged'          => $paged
 	);
-	
+
 	if (!( $filter == 'all' )) {
 		if( function_exists( 'icl_object_id' ) ){
 			$filter = (int)icl_object_id( $filter, 'product_category', true);
@@ -58,18 +60,26 @@ function thedux_product_masonry_shortcode( $atts ) {
 	}
 	
 	if($group_by == 'feature'){
-		if( ! empty( $feature ) ){
+		if(isset($feature)){
 			
 			switch ( $feature ) {
 				case 'featured':
-					$query_args['meta_query'][] = array(
-						'key'   => '_featured',
-						'value' => 'yes',
+					$query_args['tax_query'][] = array(
+						'taxonomy' => 'product_visibility',
+						'field'    => 'term_taxonomy_id',
+						'terms'    => $product_visibility_term_ids['featured'],
 					);
 					break;
 
 				case 'sale':
-					$query_args['post__in'] = array_merge( array( 0 ), wc_get_product_ids_on_sale() );
+					$product_ids_on_sale    = wc_get_product_ids_on_sale();
+					$product_ids_on_sale[]  = 0;
+					$query_args['post__in'] = $product_ids_on_sale;
+					break;
+					
+				case 'best_sellers':
+					$query_args['meta_key'] = 'total_sales';
+					$query_args['orderby'] = 'meta_value_num';
 					break;
 
 				default:
@@ -94,8 +104,16 @@ function thedux_product_masonry_shortcode( $atts ) {
 		}
 	}
 	
-	$custom_query = new WP_Query( $query_args );
+	if(isset($feature) && $feature == 'top_rated' ){
+		add_filter( 'posts_clauses', array( 'WC_Shortcodes', 'order_by_rating_post_clauses' ) );
+	}
 	
+	$custom_query = new WP_Query( $query_args );
+
+	if(isset($feature) && $feature == 'top_rated' ){
+		remove_filter( 'posts_clauses', array( 'WC_Shortcodes', 'order_by_rating_post_clauses' ) );
+	}
+
 	$old_query = $wp_query;
 	$wp_query = NULL;
 	$wp_query = $custom_query;
