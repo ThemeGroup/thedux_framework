@@ -90,7 +90,7 @@ function thedux_feature_product_list_shortcode( $atts ) {
 				while ( $wp_query->have_posts() ) : $wp_query->the_post();
 				global $product, $woocommerce;
 				?>
-				<li class="feature-product-item"><span class="feature-product-price"><?php echo woocommerce_template_loop_price(); ?></span> <a href="<?php the_permalink(); ?>" data-productid="<?php the_ID(); ?>" class="feature-product-title"><?php the_title(); ?></a></li>
+				<li class="feature-product-item"><span class="feature-product-price"><?php echo woocommerce_template_loop_price(); ?></span> <a href="<?php the_permalink(); ?>" data-productid="<?php the_ID(); ?>" class="feature-product-title ajax-link"><?php the_title(); ?></a></li>
 				<?php
 				endwhile;
 				?>
