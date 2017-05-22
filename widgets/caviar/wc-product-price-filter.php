@@ -116,7 +116,7 @@ class THEDUX_WC_Widget_Price_Filter extends WC_Widget {
 
 
         if ( strlen( $min_price ) > 0 ) {
-            $output .= '<li><a class="ajax-link" href="' . esc_url( $link ) . '">' . esc_html__( 'All', 'thedux_framework' ) . '</a></li>';
+            $output .= '<li><a href="' . esc_url( $link ) . '">' . esc_html__( 'All', 'thedux_framework' ) . '</a></li>';
         } else {
             $output .= '<li class="active">' . esc_html__( 'All', 'thedux_framework' ) . '</li>';
         }
@@ -140,7 +140,7 @@ class THEDUX_WC_Widget_Price_Filter extends WC_Widget {
 
                 if ( $range_min != $min_price ) {
                     $url = add_query_arg( array( 'min_price' => $range_min, 'max_price' => $max ), $link );
-                    $output .= '<li><a class="ajax-link" href="' . esc_url( $url ) . '">' . $price_output . '</a></li>';
+                    $output .= '<li><a href="' . esc_url( $url ) . '">' . $price_output . '</a></li>';
                 } else {
                     $output .= '<li class="current">' . $price_output . '</li>';
                 }
@@ -151,7 +151,7 @@ class THEDUX_WC_Widget_Price_Filter extends WC_Widget {
 
                 if ( $range_min != $min_price || $range_max != $max_price ) {
                     $url = add_query_arg( array( 'min_price' => $range_min, 'max_price' => $range_max ), $link );
-                    $output .= '<li><a class="ajax-link" href="' . esc_url( $url ) . '">' . $price_output . '</a></li>';
+                    $output .= '<li><a href="' . esc_url( $url ) . '">' . $price_output . '</a></li>';
                 } else {
                     $output .= '<li class="active">' . $price_output . '</li>';
                 }

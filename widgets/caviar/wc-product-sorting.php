@@ -92,7 +92,7 @@ class THEDUX_WC_Widget_Product_Sorting extends WC_Widget {
                 } else {
                     // Add 'orderby' URL query string
                     $link = add_query_arg( 'orderby', $id, $link );
-                    $output .= '<li><a class="ajax-link" href="' . esc_url( $link ) . '">' . esc_attr( $name ) . '</a></li>';
+                    $output .= '<li><a href="' . esc_url( $link ) . '">' . esc_attr( $name ) . '</a></li>';
                 }
             }
 
