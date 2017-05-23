@@ -42,6 +42,7 @@ function thedux_framework_register_caviar_blocks(){
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_video_background_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_video_gallery_block.php');
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_video_gallery_wide_block.php');
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/vc_map_block.php');
 }
 
 function thedux_framework_caviar_init(){
