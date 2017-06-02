@@ -59,24 +59,7 @@ function thedux_framework_cpt_render_form() {
                             <input type="text" size="30" name="thedux_framework_cpt_display_options[portfolio_slug]" value="<?php echo $displays['portfolio_slug']; ?>" placeholder="portfolio" /><br />
                              <br />e.g Entering 'portfolio' will result in www.website.com/portfolio becoming the URL to your portfolio.<br />
                              <b>If you change this setting, be sure to visit <a href="options-permalink.php">Your Permalink Settings</a> & click the 'save changes' button to refresh & re-write your permalinks.</b></label>
-                             
-                             <br />
-                             <hr />
-                             <br />
-
-                            <label><b>Enter the URL slug you want to use for this post type. DO-NOT: use numbers, spaces, capital letters or special characters.</b><br /><br />
-                            <input type="text" size="30" name="thedux_framework_cpt_display_options[team_slug]" value="<?php echo $displays['team_slug']; ?>" placeholder="team" /><br />
-                             <br />e.g Entering 'team' will result in www.website.com/team becoming the URL to your team.<br />
-                             <b>If you change this setting, be sure to visit <a href="options-permalink.php">Your Permalink Settings</a> & click the 'save changes' button to refresh & re-write your permalinks.</b></label>
-
-                             <br />
-                             <hr />
-                             <br />
-
-                            <label><b>Enter the URL slug you want to use for this post type. DO-NOT: use numbers, spaces, capital letters or special characters.</b><br /><br />
-                            <input type="text" size="30" name="thedux_framework_cpt_display_options[case_studies_slug]" value="<?php echo $displays['case_studies_slug']; ?>" placeholder="case-studies" /><br />
-                             <br />e.g Entering 'case-studies' will result in www.website.com/case-studies becoming the URL to your case studies.<br />
-                             <b>If you change this setting, be sure to visit <a href="options-permalink.php">Your Permalink Settings</a> & click the 'save changes' button to refresh & re-write your permalinks.</b></label>
+                            s
                              
                         </td>
                     </tr>
