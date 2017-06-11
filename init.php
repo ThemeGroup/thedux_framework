@@ -18,7 +18,9 @@ $defaults = array(
 	'options'               => '0',
 	'metaboxes'             => '0',
 	'caviar_vc_shortcodes'  => '0',
-	'caviar_widgets'     	=> '0'
+	'caviar_widgets'     	=> '0',
+	'lugos_vc_shortcodes'  	=> '0',
+	'lugos_widgets'     	=> '0'
 );
 $framework_options = wp_parse_args( get_option('thedux_framework_options'), $defaults);
 
@@ -62,12 +64,19 @@ if( '1' == $framework_options['options'] ){
 if( '1' == $framework_options['caviar_vc_shortcodes'] ){
 	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/caviar/init.php' );	
 }
+if( '1' == $framework_options['lugos_vc_shortcodes'] ){
+	require_once( THEDUX_FRAMEWORK_PATH . 'vc_blocks/lugos/init.php' );
+}
 /**
  * Custom Widget
  */
 if( '1' == $framework_options['caviar_widgets'] ){
 	require_once( THEDUX_FRAMEWORK_PATH . 'widgets/caviar/init.php' );
 }
+if( '1' == $framework_options['lugos_widgets'] ){
+	require_once( THEDUX_FRAMEWORK_PATH . 'widgets/lugos/init.php' );
+}
+
 
 /**
  * Register Portfolio Post Type
